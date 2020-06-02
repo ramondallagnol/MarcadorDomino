@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:marcadordomino/android/styles.dart';
+import 'package:provider/provider.dart';
 import '../android/screens/domino.dart';
 import 'models/game.dart';
 import 'models/player.dart';
+import 'stores/game_controller.dart';
 
 class AndroidApp extends StatefulWidget {
   @override
@@ -11,8 +13,8 @@ class AndroidApp extends StatefulWidget {
 }
 
 class _AndroidAppState extends State<AndroidApp> {
-  Game _game;
   final scoreController = TextEditingController();
+  final controller = GameController();
 
   void _addScore(int score, Player player) {
     setState(() {
@@ -20,27 +22,11 @@ class _AndroidAppState extends State<AndroidApp> {
     });
   }
 
-  void _setGame() {
-    setState(() {
-      _game = new Game(
-          Player('Jogador 1'),
-          Player('Jogador 2'),
-          100
-      );
-    });
-  }
-
-  void _refreshGame() {
-    setState(() {
-      _game.refreshGame();
-    });
-  }
-
   void _validatePlayerIsWins(Player player) {
-    if ( player.isWins(_game.scoreGame) ) {
-      player.victory++;
-//      _showDialogWins()
-    }
+//    if ( player.isWins(_game.scoreGame) ) {
+//      player.victory++;
+////      _showDialogWins()
+//    }
   }
 
   Future<void> _showDialogWins(Player player) async {
@@ -108,25 +94,27 @@ class _AndroidAppState extends State<AndroidApp> {
 
   @override
   Widget build(BuildContext context) {
-    _setGame();
-    return MaterialApp(
-      title: 'Marcador Dominó',
-      debugShowCheckedModeBanner: false,
-      theme: androidTheme(),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('Marcador Dominó'),
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(Icons.refresh, color: Colors.white,),
-              iconSize: 30,
-              onPressed: _refreshGame
+    return Provider(
+      create: (_) => GameController(),
+      child: MaterialApp(
+        title: 'Marcador Dominó',
+        debugShowCheckedModeBanner: false,
+        theme: androidTheme(),
+        home: Scaffold(
+            appBar: AppBar(
+              centerTitle: true,
+              title: Text('Marcador Dominó'),
+              actions: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.refresh, color: Colors.white,),
+                    iconSize: 30,
+                    onPressed: null
+                ),
+              ],
             ),
-          ],
+            body: Domino()
         ),
-        body: Domino(_game)
-      ),
+      )
     );
   }
 }

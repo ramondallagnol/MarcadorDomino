@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marcadordomino/android/components/text_auto_size.dart';
 import 'package:marcadordomino/android/models/game.dart';
 import 'package:marcadordomino/android/models/player.dart';
+import 'package:marcadordomino/android/stores/game_controller.dart';
+import 'package:provider/provider.dart';
 
 class PlayerInfo extends StatefulWidget {
-  final Player player;
-  final Game game;
-  PlayerInfo(this.player, this.game);
-
   @override
   _PlayerInfoState createState() => _PlayerInfoState();
 }
@@ -17,6 +16,8 @@ class _PlayerInfoState extends State<PlayerInfo> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<GameController>(context);
+
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -27,13 +28,21 @@ class _PlayerInfoState extends State<PlayerInfo> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextAutoSize(widget.game.player1.name, 20, 80),
+                Observer(
+                  builder: (_) => TextAutoSize(
+                    '${controller.game.player1.name}', 20, 80,
+                  ),
+                ),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                TextAutoSize(widget.game.player2.name, 20, 80)
+                  Observer(
+                    builder: (_) => TextAutoSize(
+                      '${controller.game.player2.name}', 20, 80,
+                    ),
+                  ),
               ],
             )
           ],

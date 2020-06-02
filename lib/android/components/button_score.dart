@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:marcadordomino/android/models/player.dart';
 
 class ButtonScore extends StatefulWidget {
-  Player player;
+  final Player player;
   ButtonScore(this.player);
   @override
   _ButtonScoreState createState() => _ButtonScoreState();
@@ -11,12 +11,6 @@ class ButtonScore extends StatefulWidget {
 
 class _ButtonScoreState extends State<ButtonScore> {
   final scoreController = TextEditingController();
-
-  void _addScore(int score, Player player) {
-    setState(() {
-      player.addScore(score);
-    });
-  }
 
   Future _scoreDialog() async {
     await showDialog(
@@ -42,7 +36,8 @@ class _ButtonScoreState extends State<ButtonScore> {
             new FlatButton(
               child: new Text("Adicionar"),
               onPressed: () {
-                _addScore(int.parse(scoreController.text), widget.player);
+                widget.player.addScore(int.parse(scoreController.text));
+//                _addScore(int.parse(scoreController.text), widget.player);
                 scoreController.clear();
                 Navigator.of(context).pop();
 //                _validatePlayerIsWins(player);
