@@ -23,17 +23,15 @@ abstract class _Player with Store {
     scores.add(score);
   }
 
+  @action
+  void setName(String value) => name = value;
+
   @computed get getTotalScore {
     var total = 0;
     scores.forEach((score) {
       total += score;
     });
     return total;
-  }
-
-  @action
-  isWins(gameScore) {
-    return getTotalScore() >= gameScore;
   }
 
 }

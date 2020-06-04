@@ -76,11 +76,11 @@ mixin _$Player on _Player, Store {
   }
 
   @override
-  dynamic isWins(dynamic gameScore) {
+  void setName(String value) {
     final _$actionInfo =
-        _$_PlayerActionController.startAction(name: '_Player.isWins');
+        _$_PlayerActionController.startAction(name: '_Player.setName');
     try {
-      return super.isWins(gameScore);
+      return super.setName(value);
     } finally {
       _$_PlayerActionController.endAction(_$actionInfo);
     }

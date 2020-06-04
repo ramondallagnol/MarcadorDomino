@@ -9,6 +9,13 @@ part of 'game.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$Game on _Game, Store {
+  Computed<bool> _$isGameValidComputed;
+
+  @override
+  bool get isGameValid => (_$isGameValidComputed ??=
+          Computed<bool>(() => super.isGameValid, name: '_Game.isGameValid'))
+      .value;
+
   final _$startDateAtom = Atom(name: '_Game.startDate');
 
   @override
@@ -94,6 +101,17 @@ mixin _$Game on _Game, Store {
   }
 
   @override
+  dynamic setScoreGame(int value) {
+    final _$actionInfo =
+        _$_GameActionController.startAction(name: '_Game.setScoreGame');
+    try {
+      return super.setScoreGame(value);
+    } finally {
+      _$_GameActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic refreshGame() {
     final _$actionInfo =
         _$_GameActionController.startAction(name: '_Game.refreshGame');
@@ -110,7 +128,8 @@ mixin _$Game on _Game, Store {
 startDate: ${startDate},
 player1: ${player1},
 player2: ${player2},
-scoreGame: ${scoreGame}
+scoreGame: ${scoreGame},
+isGameValid: ${isGameValid}
     ''';
   }
 }

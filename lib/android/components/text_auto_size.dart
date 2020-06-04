@@ -18,6 +18,7 @@ class _PlayerNameState extends State<TextAutoSize> {
       maxLines: 1,
       minFontSize: widget.minSize,
       maxFontSize: widget.maxSize,
+      overflow: TextOverflow.ellipsis,
       style: TextStyle(
           fontWeight: FontWeight.w700
       ),

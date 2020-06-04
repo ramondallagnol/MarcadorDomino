@@ -54,8 +54,7 @@ class _ButtonScoreState extends State<ButtonScore> {
     return IconButton(
       onPressed: _scoreDialog,
       iconSize: 50,
-      splashColor: Colors.green,
-      icon: Icon(Icons.add, color: Colors.white,),
+      icon: Icon(Icons.add, color: Colors.black,),
     );
   }
 }

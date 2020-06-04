@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:marcadordomino/android/app/app_controller.dart';
 import 'package:marcadordomino/android/components/button_score.dart';
 import 'package:marcadordomino/android/components/text_auto_size.dart';
-import 'package:marcadordomino/android/models/game.dart';
-import 'package:marcadordomino/android/stores/game_controller.dart';
-import 'package:provider/provider.dart';
 
 class Score extends StatefulWidget {
   @override
@@ -12,9 +11,9 @@ class Score extends StatefulWidget {
 }
 
 class _ScoreState extends State<Score> {
+  final controller = Modular.get<AppController>();
   @override
   Widget build(BuildContext context) {
-    final controller = Provider.of<GameController>(context);
     return Container(
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.end,

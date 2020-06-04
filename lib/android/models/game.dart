@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:marcadordomino/android/models/player.dart';
 import 'package:mobx/mobx.dart';
 
@@ -26,11 +27,16 @@ abstract class _Game with Store{
   @action
   setPlayer2(Player value) => player1 = value;
 
+  @action
+  setScoreGame(int value) => scoreGame = value;
 
   @action
   refreshGame() {
     this.player1.scores.clear();
     this.player2.scores.clear();
   }
+
+  @computed
+  bool get isGameValid => player1.name.isNotEmpty && player2.name.isNotEmpty && scoreGame > 0;
 
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:marcadordomino/android/models/player.dart';
-import 'package:marcadordomino/android/stores/game_controller.dart';
+//import 'package:marcadordomino/android/stores/game_controller.dart';
 import 'package:provider/provider.dart';
 
 class PontuationList extends StatefulWidget {
