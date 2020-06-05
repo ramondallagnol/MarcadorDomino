@@ -34,4 +34,14 @@ abstract class _Player with Store {
     return total;
   }
 
+  @action
+  bool isWins(score) {
+    return getTotalScore >= score;
+  }
+
+  @action
+  void addVictory() {
+    victory++;
+  }
+
 }

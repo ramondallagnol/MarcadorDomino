@@ -15,31 +15,43 @@ class _DominoState extends State<DominoPage> {
       body: Container(
         padding: EdgeInsets.only(
             top: 30,
-            left: 40,
-            right: 40
         ),
-        child: ListView(
+        child: Column(
           children: <Widget>[
-            PlayerInfo(),
-            SizedBox(
-              height: 20,
+            Expanded(
+              child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        child: PlayerInfo(),
+                      ),
+                      Container(
+                        height: 500,
+                        child: Pontuation(),
+                      ),
+                    ],
+                  )
+              ),
             ),
-            Pontuation(),
             SizedBox(
-              height: 5,
+              height: 15,
             ),
             const Divider(
-              height: 10,
+              indent: 40,
+              endIndent: 40,
               thickness: 3,
               color: Colors.black,
             ),
-            Score(),
+            Container(
+                height: 130,
+                child: Center(
+                    child: Score()
+                )
+            )
           ],
         ),
-      ),
+      )
     );
-
-
-
   }
 }

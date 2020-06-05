@@ -22,7 +22,7 @@ class _ScoreState extends State<Score> {
           Column(
             children: <Widget>[
               Observer(
-                builder: (_) => TextAutoSize('${controller.game.player1.getTotalScore.toString()}', 40, 80,),
+                builder: (_) => TextAutoSize('${controller.game.player1.getTotalScore.toString()}', 50, 80,),
               ),
               Observer(
                 builder: (_) => ButtonScore(controller.game.player1),
@@ -32,7 +32,7 @@ class _ScoreState extends State<Score> {
           Column(
             children: <Widget>[
               Observer(
-                builder: (_) => TextAutoSize('${controller.game.player2.getTotalScore.toString()}', 40, 80,),
+                builder: (_) => TextAutoSize('${controller.game.player2.getTotalScore.toString()}', 50, 80,),
               ),
               Observer(
                 builder: (_) => ButtonScore(controller.game.player2),

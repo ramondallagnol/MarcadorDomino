@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:marcadordomino/android/app/app_controller.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +12,8 @@ class HomePage extends StatefulWidget {
 class _HomeWidgetState extends State<HomePage> {
 
   final AppController appController = Modular.get<AppController>();
+  final _formKey = GlobalKey<FormState>();
+  final requiredValidator = RequiredValidator(errorText: 'Campo obrigatório');
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +21,7 @@ class _HomeWidgetState extends State<HomePage> {
     return Scaffold(
       body: Container(
         padding: EdgeInsets.only(
-          top: 60,
+          top: 50,
           left: 40,
           right: 40
         ),
@@ -48,105 +51,104 @@ class _HomeWidgetState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              onChanged: appController.game.player1.setName,
-              initialValue: 'Jogador 1',
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  border: InputBorder.none,
-                  hintText: 'Nome do jogador ou dupla 1',
-                  hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
-                  labelText: 'Jogador 1',
-                  labelStyle: TextStyle(
-                      color: Colors.black38,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20
-                  )
-              ),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              initialValue: 'Jogador 2',
-              onChanged: appController.game.player2.setName,
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.person),
-                  border: InputBorder.none,
-                  hintText: 'Nome do jogador ou dupla 2',
-                  hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
-                  labelText: 'Jogador 2',
-                  labelStyle: TextStyle(
-                      color: Colors.black38,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20
-                  )
-              ),
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              initialValue: '100',
-              onChanged: (value) => appController.game.setScoreGame(int.parse(value)),
-              decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.format_list_numbered, color: Colors.black38,),
-                  border: InputBorder.none,
-                  hintText: 'Quantidade de pontos da partida',
-                  hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
-                  labelText: 'Pontos',
-                  labelStyle: TextStyle(
-                      color: Colors.black38,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20
-                  )
-              ),
-            ),
-            SizedBox(
-              height: 35,
-            ),
-            Container(
-              height: 60,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [0.3, 1],
-                  colors: [
-                    Color(0xFFF58524),
-                    Color(0xFFF92B7F)
-                  ]
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-              ),
-              child: SizedBox.expand(
-                child: Observer(
-                  builder: (_) {
-                    return appController.game.isGameValid ? FlatButton(
-                      child: Text(
-                        'Começar Partida',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),
-                      ),
-                      onPressed: () {
-                        print(appController.game.isGameValid);
-                        print(appController.game.player1.name);
-                        print(appController.game.player2.name);
-                        print(appController.game.scoreGame);
-                        Navigator.pushNamed(context, '/domino');
-                      },
-                    ) : RaisedButton(
-                      child: Text(
-                        'Começar Partida',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20
-                        ),
-                      ),
-                      onPressed: null,
-                    );
-                  }
+            Form(
+                child: Column(
+                  children: <Widget>[
+
+                  ],
                 )
+            ),
+            Form(
+              key: _formKey,
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    onChanged: appController.game.player1.setName,
+                    validator: requiredValidator,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+                        hintText: 'Exemplo: João e Ana',
+                        hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
+                        labelText: 'Dupla 1 / jogador 1',
+                        labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20
+                        )
+                    ),
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.text,
+                    onChanged: appController.game.player2.setName,
+                    validator: requiredValidator,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.person),
+//                        border: InputBorder.none,
+                        hintText: 'Exemplo: João e Ana',
+                        hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
+                        labelText: 'Dupla 2 / jogador 2',
+                        labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20
+                        )
+                    ),
+                  ),
+                  TextFormField(
+                    keyboardType: TextInputType.number,
+                    initialValue: '100',
+                    onChanged: (value) => appController.game.setScoreGame(int.parse(value)),
+                    validator: requiredValidator,
+                    decoration: InputDecoration(
+                        icon: Icon(Icons.format_list_numbered, color: Colors.black38,),
+//                        border: InputBorder.none,
+                        hintText: 'Quantidade de pontos da partida',
+                        hintStyle: TextStyle(fontSize: 18.0, color: Colors.black26),
+                        labelText: 'Pontos',
+                        labelStyle: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 20
+                        )
+                    ),
+                  ),
+                  SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                    height: 60,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          stops: [0.3, 1],
+                          colors: [
+                            Color(0xFFF58524),
+                            Color(0xFFF92B7F)
+                          ]
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                    ),
+                    child: SizedBox.expand(
+                        child: FlatButton(
+                          child: Text(
+                            'Começar Partida',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_formKey.currentState.validate()) {
+                              Navigator.pushNamed(context, '/domino');
+                            }
+                          },
+                        )
+                    ),
+                  ),
+                ],
               ),
             ),
             SizedBox(

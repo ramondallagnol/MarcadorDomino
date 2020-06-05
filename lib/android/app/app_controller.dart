@@ -9,8 +9,8 @@ class AppController = _AppController with _$AppController;
 abstract class _AppController with Store {
   @observable
   Game game = Game(
-      player1: Player('Jogador 1'),
-      player2: Player('Jogador 2'),
+      player1: Player(''),
+      player2: Player(''),
       scoreGame: 100
   );
 }
